@@ -36,7 +36,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "esno scripts/clone.ts",
+    "update": "esno scripts/update.ts",
     "lint": "eslint .",
     "publish": "esno scripts/publish.ts",
     "typecheck": "tsc --noEmit",
