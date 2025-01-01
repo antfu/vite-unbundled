@@ -6,7 +6,11 @@
 [![JSDocs][jsdocs-src]][jsdocs-href]
 [![License][license-src]][license-href]
 
-Derivated Vite with unbundled dependencies. For debug only.
+Derivated Vite with unbundled dependencies, for debugging.
+
+## Why?
+
+Vite bundles most of its dependencies for performance reasons. However, this makes debugging harder as it's hard to trace the source code of the dependencies. This package is a build of Vite with unbundled dependencies for easier debugging.
 
 ## Usage
 
@@ -24,9 +28,9 @@ Change `6.0.6` to the version you want to use.
 
 ## TODOs
 
-- [ ] Release on CI with provance
+- [x] Release on CI with provance
+- [x] Strictly align with Vite release tag
 - [ ] Automate release trigger by Vite release
-- [ ] Strictly align with Vite release tag
 
 ## Sponsors
 
