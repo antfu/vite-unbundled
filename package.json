@@ -40,7 +40,7 @@
     "lint": "eslint .",
     "publish": "esno scripts/publish.ts",
     "typecheck": "tsc --noEmit",
-    "prepare": "simple-git-hooks"
+    "prepare": "simple-git-hooks && git submodule update --init --recursive"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.11.2",
