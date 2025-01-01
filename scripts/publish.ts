@@ -18,11 +18,12 @@ const tags = (await x('git', ['tag', '--sort=-creatordate'], { nodeOptions: { cw
   .split('\n')
   .filter(i => i.startsWith('v'))// Exclude sub packages tag
 
-console.log({ tags })
-
 async function releaseForTag(tag: string) {
+  console.log()
+  console.log('-'.repeat(80))
   console.log(`Build for ${tag}...`)
 
+  await x('git', ['checkout', '.'], { nodeOptions: { cwd: 'vite' } })
   await x('git', ['checkout', tag], { nodeOptions: { cwd: 'vite' } })
   await x('pnpm', ['install', '--frozen-lockfile'], { nodeOptions: { cwd: 'vite', stdio: 'inherit' } })
 
@@ -84,6 +85,7 @@ This version is deviated from the original vite version \`${version}\` at commit
 
   const rootPackageJSON = JSON.parse(await fs.readFile('vite/package.json', 'utf-8'))
   delete rootPackageJSON.devDependencies.vite
+  delete rootPackageJSON.devDependencies['playwright-chromium']
   delete rootPackageJSON.pnpm.overrides.vite
   await fs.writeFile('vite/package.json', JSON.stringify(rootPackageJSON, null, 2))
 
@@ -106,6 +108,8 @@ const newTags = tags
 
 const publishedVersions = await x('npm', ['view', 'vite-unbundled', 'versions', '--json']).then(i => JSON.parse(i.stdout))
 const missingVersions = newTags.filter(i => !publishedVersions.includes(i.replace('v', '')))
+
+console.log('Missing versions:', missingVersions)
 
 for (const tag of missingVersions) {
   await releaseForTag(tag)
